@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../contexts/AuthContext';
 import { Sun, Zap, Shield, TrendingUp, Star, ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -10,9 +11,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const { user, logOut } = useAuth();
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
+    <>
+      <Helmet>
+        <title>SolarConnect - Conectando Você à Energia Solar</title>
+        <meta name="description" content="Encontre os melhores instaladores de energia solar, solicite orçamentos e comece seu projeto de energia renovável com a SolarConnect." />
+      </Helmet>
+      <div className="min-h-screen bg-white">
+        {/* Header */}
+        <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
