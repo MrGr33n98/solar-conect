@@ -1,9 +1,10 @@
+// Redefined User to match backend JWT/API response
 export interface User {
-  uid: string;
+  id: string; // Changed from uid
+  name: string; // Changed from displayName
   email: string;
-  displayName: string;
-  photoURL?: string;
-  isAnonymous?: boolean;
+  role: string;
+  // photoURL and isAnonymous are removed as they are not part of the new backend user structure
 }
 
 export interface Company {
@@ -77,11 +78,13 @@ export interface AnalyticData {
 
 export interface AuthContextType {
   user: User | null;
-  userId: string | null;
-  loading: boolean;
-  signInWithGoogle: () => Promise<void>;
-  signInWithLinkedIn: () => Promise<void>;
-  logOut: () => Promise<void>;
+  token: string | null;
+  isAuthenticated: boolean;
+  isLoadingAuth: boolean; // Renamed from loading to avoid conflict
+  login: (email: string, password: string) => Promise<boolean>; // Returns true on success
+  logOut: () => void;
+  // signInWithGoogle and signInWithLinkedIn are removed for now to focus on JWT auth
+  // userId can be derived from user.id if needed
 }
 
 export interface ContactForm {
