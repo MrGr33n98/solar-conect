@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'owner' // Optional alias
       });
+      Company.belongsToMany(models.Category, {
+        through: models.CompanyCategory, // Use the model for clarity if defined
+        foreignKey: 'companyId',
+        otherKey: 'categoryId',
+        as: 'categories'
+      });
     }
   }
   Company.init({
@@ -33,7 +39,20 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false // This should align with the migration
-    }
+    },
+    // New attributes
+    city: { type: DataTypes.STRING, allowNull: true },
+    state: { type: DataTypes.STRING, allowNull: true },
+    addressLine1: { type: DataTypes.STRING, allowNull: true },
+    addressLine2: { type: DataTypes.STRING, allowNull: true },
+    postalCode: { type: DataTypes.STRING, allowNull: true },
+    logoUrl: { type: DataTypes.STRING, allowNull: true, validate: { isUrl: true } },
+    bannerUrl: { type: DataTypes.STRING, allowNull: true, validate: { isUrl: true } },
+    valueIndicator: { type: DataTypes.STRING, allowNull: true }, // e.g., "$", "$$", "$$$"
+    strengths: { type: DataTypes.TEXT, allowNull: true }, // Could be JSON or comma-separated string
+    warrantyDetails: { type: DataTypes.TEXT, allowNull: true },
+    servicesOffered: { type: DataTypes.TEXT, allowNull: true }, // Could be JSON or comma-separated string
+    brandsWorkedWith: { type: DataTypes.TEXT, allowNull: true } // Could be JSON or comma-separated string
   }, {
     sequelize,
     modelName: 'Company',

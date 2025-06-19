@@ -6,3 +6,6 @@ package-lock.json
 
 # Sequelize
 .sequelizerc
+
+# Uploaded files
+public/uploads/
