@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../contexts/AuthContext';
 import { Company, AnalyticData, Benefit, Project, Testimonial, Differential } from '../types';
 import { 
@@ -1059,13 +1060,19 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({ onNavigate }) => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {renderSidebar()}
-      <div className="flex-1 p-8">
-        <div className="max-w-7xl mx-auto">
-          {renderContent()}
+    <>
+      <Helmet>
+        <title>Dashboard - SolarConnect</title>
+        <meta name="description" content="Seu painel de controle SolarConnect. Acompanhe seus projetos de instalação de energia solar e orçamentos." />
+      </Helmet>
+      <div className="flex min-h-screen bg-gray-50">
+        {renderSidebar()}
+        <div className="flex-1 p-8">
+          <div className="max-w-7xl mx-auto">
+            {renderContent()}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
