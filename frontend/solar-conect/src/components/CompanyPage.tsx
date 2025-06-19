@@ -788,6 +788,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </footer>
-    </div>
+    </div> {/* Closes <div className="min-h-screen bg-white"> */}
+  </> // Added closing fragment tag
   );
 };

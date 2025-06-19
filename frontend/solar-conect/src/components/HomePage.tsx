@@ -314,6 +314,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </footer>
-    </div>
+    </div> {/* Closes <div className="min-h-screen bg-white"> */}
+  </> // Added closing fragment tag
   );
 };
