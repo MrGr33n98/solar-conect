@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../contexts/AuthContext';
 import { Company, ContactForm } from '../types';
 import { 
@@ -227,9 +228,14 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({ onNavigate }) => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white shadow-lg sticky top-0 z-50">
+    <>
+      <Helmet>
+        <title>Empresas - SolarConnect</title>
+        <meta name="description" content="Detalhes da empresa instaladora de energia solar. Encontre informações e contatos na SolarConnect." />
+      </Helmet>
+      <div className="min-h-screen bg-white">
+        {/* Header */}
+        <header className="bg-white shadow-lg sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3">

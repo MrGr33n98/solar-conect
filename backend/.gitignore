@@ -1,0 +1,11 @@
+node_modules/
+package-lock.json
+
+# Environment Variables
+.env
+
+# Sequelize
+.sequelizerc
+
+# Uploaded files
+public/uploads/
