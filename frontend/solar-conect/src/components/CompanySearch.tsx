@@ -105,71 +105,77 @@ export const CompanySearch: React.FC = () => {
      }
   };
 
-  const inputStyle: React.CSSProperties = { padding: '8px', marginRight: '10px', border: '1px solid #ccc', borderRadius: '4px' };
-  const companyCardStyle: React.CSSProperties = {
-    border: '1px solid #eee', padding: '15px', marginBottom: '15px', borderRadius: '8px',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center'
-  };
-  const logoStyle: React.CSSProperties = {width: '60px', height: '60px', marginRight: '15px', objectFit: 'contain', border: '1px solid #f0f0f0'};
-
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', maxWidth: '900px', margin: 'auto' }}>
-      <h3 style={{ borderBottom: '2px solid #eee', paddingBottom: '10px', marginBottom: '20px' }}>Find Solar Companies</h3>
-      <div style={{ marginBottom: '25px', display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap', padding: '15px', background: '#f9f9f9', borderRadius: '8px' }}>
-        <input style={inputStyle} type="text" name="name" placeholder="Company Name" value={searchParams.name} onChange={handleInputChange} />
-        <input style={inputStyle} type="text" name="city" placeholder="City" value={searchParams.city} onChange={handleInputChange} />
-        <input style={inputStyle} type="text" name="state" placeholder="State (e.g., SP)" value={searchParams.state} onChange={handleInputChange} />
-        <select style={inputStyle} name="categoryId" value={searchParams.categoryId} onChange={handleInputChange}>
+    <div className="p-4 md:p-8 max-w-4xl mx-auto">
+      <h3 className="text-2xl font-semibold text-center text-gray-800 mb-6 pb-2 border-b-2 border-gray-200">Find Solar Companies</h3>
+      <div className="mb-8 p-4 md:p-6 bg-gray-100 rounded-lg shadow-md flex flex-col sm:flex-row sm:flex-wrap items-center gap-4">
+        <input
+          type="text" name="name" placeholder="Company Name"
+          value={searchParams.name} onChange={handleInputChange}
+          className="px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm sm:text-sm flex-grow w-full sm:w-auto"
+        />
+        <input
+          type="text" name="city" placeholder="City"
+          value={searchParams.city} onChange={handleInputChange}
+          className="px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm sm:text-sm flex-grow w-full sm:w-auto"
+        />
+        <input
+          type="text" name="state" placeholder="State (e.g., SP)"
+          value={searchParams.state} onChange={handleInputChange}
+          className="px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm sm:text-sm flex-grow w-full sm:w-auto"
+        />
+        <select
+          name="categoryId" value={searchParams.categoryId} onChange={handleInputChange}
+          className="px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm sm:text-sm flex-grow w-full sm:w-auto"
+        >
           <option value="">All Categories</option>
           {allCategories.map(cat => (
             <option key={cat.id} value={cat.id}>{cat.name}</option>
           ))}
         </select>
-        {/* No explicit search button, useEffect triggers on param change */}
       </div>
 
-      {isLoading && <p>Loading results...</p>}
-      {error && <p style={{ color: 'red', backgroundColor: '#ffebee', padding: '10px', borderRadius: '4px' }}>Error: {error}</p>}
+      {isLoading && <p className="text-center text-gray-500 py-8">Loading results...</p>}
+      {error && <p className="text-center text-red-600 bg-red-100 p-4 rounded-md">Error: {error}</p>}
 
-      {!isLoading && !error && companies.length === 0 && <p>No companies found matching your criteria.</p>}
-      {!isLoading && !error && companies.length > 0 && <p>{totalCompanies} companies found.</p>}
+      {!isLoading && !error && companies.length === 0 && <p className="text-center text-gray-500 py-8">No companies found matching your criteria.</p>}
+      {!isLoading && !error && companies.length > 0 && <p className="text-sm text-gray-600 mb-4">{totalCompanies} companies found.</p>}
 
-
-      <div style={{ marginTop: '20px' }}>
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         {companies.map(company => (
-          <div key={company.id} style={companyCardStyle}>
+          <div key={company.id} className="bg-white p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-start gap-4">
             {company.logoUrl ?
-              <img src={company.logoUrl} alt={`${company.name} logo`} style={logoStyle} /> :
-              <div style={{...logoStyle, background: '#e0e0e0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#aaa' }}>No Logo</div>
+              <img src={company.logoUrl} alt={`${company.name} logo`} className="w-16 h-16 md:w-24 md:h-24 object-contain border border-gray-200 rounded-md flex-shrink-0" /> :
+              <div className="w-16 h-16 md:w-24 md:h-24 bg-gray-200 text-gray-400 flex items-center justify-center rounded-md flex-shrink-0 text-xs">No Logo</div>
             }
-            <div>
-              <h4 style={{ margin: '0 0 5px 0', fontSize: '1.2em' }}>{company.name}</h4>
-              <p style={{ margin: '0 0 5px 0', color: '#555' }}>{company.city}, {company.state}</p>
+            <div className="flex-grow">
+              <h4 className="text-lg md:text-xl font-semibold text-gray-800 mb-1">{company.name}</h4>
+              <p className="text-sm text-gray-600 mb-1">{company.city}, {company.state}</p>
               {company.categories && company.categories.length > 0 && (
-                <p style={{fontSize: '0.9em', color: '#777', margin: '0'}}>
+                <p className="text-xs text-gray-500">
                   Categories: {company.categories.map(c => c.name).join(', ')}
                 </p>
               )}
-              {/* Example: <button onClick={() => alert(`View company ${company.id}`)} style={{marginTop: '8px'}}>View Details</button> */}
+              {/* Example: <button className="mt-2 text-blue-600 hover:text-blue-800 text-sm">View Details</button> */}
             </div>
           </div>
         ))}
       </div>
 
       {!isLoading && totalPages > 0 && (
-         <div style={{ marginTop: '30px', textAlign: 'center' }}>
+         <div className="mt-8 py-4 flex justify-center items-center gap-2">
             <button
                 onClick={() => handlePageChange(searchParams.page - 1)}
                 disabled={searchParams.page <= 1}
-                style={{padding: '8px 12px', margin: '0 5px'}}
+                className="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 Previous
             </button>
-            <span>Page {searchParams.page} of {totalPages}</span>
+            <span className="text-sm text-gray-700">Page {searchParams.page} of {totalPages}</span>
             <button
                 onClick={() => handlePageChange(searchParams.page + 1)}
                 disabled={searchParams.page >= totalPages}
-                style={{padding: '8px 12px', margin: '0 5px'}}
+                className="px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 Next
             </button>
