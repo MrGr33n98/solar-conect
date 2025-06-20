@@ -206,7 +206,12 @@ export const CompanySearch: React.FC<CompanySearchProps> = ({ onNavigate }) => {
               >
                 {companiesToCompare.find(c => c.id === company.id) ? 'Remover da Comparação' : 'Adicionar à Comparação'}
               </button>
-              {/* Example: <button onClick={() => onNavigate('company', { companyId: company.id })} className="mt-2 text-blue-600 hover:text-blue-800 text-sm w-full text-center">Ver Detalhes</button> */}
+              <button
+                onClick={() => onNavigate('companyDetail', { companyId: company.id })}
+                className="mt-2 px-3 py-1 text-sm rounded-md w-full text-center bg-gray-200 text-gray-700 hover:bg-gray-300"
+              >
+                Ver Perfil
+              </button>
             </div>
           </div>
         ))}

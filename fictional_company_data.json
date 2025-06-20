@@ -1,0 +1,795 @@
+[
+  {
+    "companyName": "SolNorte Energia - Rio Branco",
+    "location": {
+      "city": "Rio Branco",
+      "state": "AC"
+    },
+    "logo": "logo_solnorte_rio_branco.png",
+    "banner": "banner_solnorte_rio_branco.jpg",
+    "description": "Líder em soluções de energia solar no Acre, a SolNorte Energia - Rio Branco oferece projetos personalizados para residências e comércios, visando máxima economia e sustentabilidade. Nossa equipe especializada garante instalação rápida e suporte técnico de excelência.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Venda de Equipamentos Solares (Painéis, Inversores, Baterias)"
+    ],
+    "reviews": [
+      {
+        "customerName": "João Pereira da Silva",
+        "rating": 5,
+        "comment": "Atendimento nota 10! Projeto bem dimensionado e economia imediata na conta de luz. Recomendo a SolNorte!"
+      },
+      {
+        "customerName": "Maria Oliveira Santos",
+        "rating": 4,
+        "comment": "Fiquei satisfeita com a instalação. Houve um pequeno atraso, mas a equipe compensou com profissionalismo."
+      },
+      {
+        "customerName": "Carlos Eduardo Lima",
+        "rating": 5,
+        "comment": "Investimento que vale a pena. A SolNorte demonstrou grande conhecimento técnico e os equipamentos são de primeira."
+      }
+    ]
+  },
+  {
+    "companyName": "Maceió SolarTech",
+    "location": {
+      "city": "Maceió",
+      "state": "AL"
+    },
+    "logo": "logo_maceio_solartech.png",
+    "banner": "banner_maceio_solartech.jpg",
+    "description": "A Maceió SolarTech é sua parceira ideal para projetos de energia solar em Alagoas. Oferecemos desde consultoria e financiamento até a instalação e manutenção de sistemas fotovoltaicos para todos os portes, com foco na eficiência energética.",
+    "serviceCategories": [
+      "Consultoria em Eficiência Energética Solar",
+      "Financiamento e Soluções de Crédito para Energia Solar",
+      "Manutenção e Limpeza de Sistemas Solares",
+      "Instalação Residencial de Painéis Solares"
+    ],
+    "reviews": [
+      {
+        "customerName": "Ana Beatriz Costa",
+        "rating": 5,
+        "comment": "Consegui financiar meu projeto graças à ajuda da Maceió SolarTech. Equipe muito atenciosa e prestativa."
+      },
+      {
+        "customerName": "José Ricardo Almeida",
+        "rating": 4,
+        "comment": "Serviço de manutenção foi rápido e eficiente. Meu sistema voltou a gerar o máximo."
+      },
+      {
+        "customerName": "Fernanda Lima Souza",
+        "rating": 5,
+        "comment": "A consultoria deles me ajudou a entender o melhor sistema para minha empresa. Profissionais de ponta!"
+      },
+      {
+        "customerName": "Antônio Carlos Barbosa",
+        "rating": 4,
+        "comment": "Recomendo! Preço justo e instalação de qualidade."
+      }
+    ]
+  },
+  {
+    "companyName": "EcoEnergia Amapá - Macapá",
+    "location": {
+      "city": "Macapá",
+      "state": "AP"
+    },
+    "logo": "logo_ecoenergia_macapa.png",
+    "banner": "banner_ecoenergia_macapa.jpg",
+    "description": "Compromisso com a sustentabilidade e a economia no Amapá. A EcoEnergia - Macapá desenvolve projetos de energia solar para agronegócio e sistemas de bombeamento rural, além de soluções urbanas completas.",
+    "serviceCategories": [
+      "Projetos de Energia Solar para Agronegócio",
+      "Instalação de Bombeamento Solar Rural",
+      "Instalação Comercial de Painéis Solares"
+    ],
+    "reviews": [
+      {
+        "customerName": "Raimundo Nonato Silva",
+        "rating": 5,
+        "comment": "Finalmente consegui irrigar minha plantação com energia solar! A EcoEnergia foi fundamental."
+      },
+      {
+        "customerName": "Lúcia Ferreira Gomes",
+        "rating": 5,
+        "comment": "Projeto para minha fazenda ficou excelente. Economia e praticidade com o bombeamento solar."
+      },
+      {
+        "customerName": "Marcos Vinícius Pinto",
+        "rating": 4,
+        "comment": "Bom atendimento, e o sistema comercial instalado está gerando muita economia para minha loja."
+      }
+    ]
+  },
+  {
+    "companyName": "Amazonas Solar Prime - Manaus",
+    "location": {
+      "city": "Manaus",
+      "state": "AM"
+    },
+    "logo": "logo_amazonas_solar_manaus.png",
+    "banner": "banner_amazonas_solar_manaus.jpg",
+    "description": "A Amazonas Solar Prime traz tecnologia de ponta em energia fotovoltaica para Manaus. Especializados em grandes projetos industriais e comerciais, oferecemos também soluções inovadoras para carregadores de veículos elétricos integrados com energia solar.",
+    "serviceCategories": [
+      "Instalação Industrial de Sistemas Fotovoltaicos",
+      "Instalação Comercial de Painéis Solares",
+      "Instalação de Carregadores para Carros Elétricos (Foco em integração com energia solar)",
+      "Consultoria em Eficiência Energética Solar"
+    ],
+    "reviews": [
+      {
+        "customerName": "Empresa XYZ Ltda.",
+        "rating": 5,
+        "comment": "Projeto industrial complexo executado com maestria. Redução de custos energéticos significativa."
+      },
+      {
+        "customerName": "Patrícia Medeiros",
+        "rating": 5,
+        "comment": "Instalaram carregadores solares no estacionamento do meu comércio. Um diferencial e tanto!"
+      },
+      {
+        "customerName": "Roberto Sampaio",
+        "rating": 4,
+        "comment": "Consultoria muito boa, nos ajudou a otimizar nosso consumo antes de instalar os painéis."
+      },
+      {
+        "customerName": "Condomínio Viver Bem",
+        "rating": 5,
+        "comment": "Excelente solução para o condomínio, tanto para áreas comuns quanto para os carregadores VE."
+      }
+    ]
+  },
+  {
+    "companyName": "Sol da Bahia - Salvador",
+    "location": {
+      "city": "Salvador",
+      "state": "BA"
+    },
+    "logo": "logo_soldabahia_salvador.png",
+    "banner": "banner_soldabahia_salvador.jpg",
+    "description": "A energia do sol baiano em sua casa ou empresa! A Sol da Bahia - Salvador é especialista em instalações residenciais e comerciais, oferecendo também as melhores opções de financiamento e venda de equipamentos de alta qualidade.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Financiamento e Soluções de Crédito para Energia Solar",
+      "Venda de Equipamentos Solares (Painéis, Inversores, Baterias)"
+    ],
+    "reviews": [
+      {
+        "customerName": "Jorge Amado Neto",
+        "rating": 5,
+        "comment": "Serviço impecável, desde o orçamento até a instalação. Minha casa agora é movida a sol!"
+      },
+      {
+        "customerName": "Teresa Batista dos Santos",
+        "rating": 4,
+        "comment": "Boas opções de financiamento, facilitou muito. O sistema está funcionando perfeitamente."
+      },
+      {
+        "customerName": "Restaurante Sabor da Terra",
+        "rating": 5,
+        "comment": "Redução expressiva na conta de luz do restaurante. Equipe Sol da Bahia muito profissional."
+      }
+    ]
+  },
+  {
+    "companyName": "Luz do Ceará - Fortaleza",
+    "location": {
+      "city": "Fortaleza",
+      "state": "CE"
+    },
+    "logo": "logo_luzdoceara_fortaleza.png",
+    "banner": "banner_luzdoceara_fortaleza.jpg",
+    "description": "A Luz do Ceará - Fortaleza ilumina o futuro com energia limpa. Especialistas em projetos para áreas litorâneas e otimização de sistemas para alta irradiação solar. Oferecemos também manutenção e limpeza de painéis.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares (Otimizada para áreas litorâneas)",
+      "Manutenção e Limpeza de Sistemas Solares",
+      "Consultoria em Eficiência Energética Solar"
+    ],
+    "reviews": [
+      {
+        "customerName": "Francisco José de Abreu",
+        "rating": 5,
+        "comment": "Excelente trabalho, mesmo com a maresia, meu sistema está perfeito. Recomendo a Luz do Ceará!"
+      },
+      {
+        "customerName": "Hotel Beira Mar",
+        "rating": 5,
+        "comment": "Nosso hotel agora tem energia solar graças a eles. Profissionais competentes e atenciosos."
+      }
+    ]
+  },
+  {
+    "companyName": "Brasília Solar Systems",
+    "location": {
+      "city": "Brasília",
+      "state": "DF"
+    },
+    "logo": "logo_brasiliasolar_systems.png",
+    "banner": "banner_brasiliasolar_systems.jpg",
+    "description": "Soluções inteligentes em energia solar para o Distrito Federal. A Brasília Solar Systems foca em projetos para órgãos públicos, empresas e residências de alto padrão, com ênfase em automação e monitoramento.",
+    "serviceCategories": [
+      "Projetos de Energia Solar para Órgãos Públicos",
+      "Instalação Residencial de Alto Padrão",
+      "Sistemas de Monitoramento e Automação Solar",
+      "Instalação Comercial de Painéis Solares"
+    ],
+    "reviews": [
+      {
+        "customerName": "Ministério da Economia Solar",
+        "rating": 5,
+        "comment": "Projeto implementado com sucesso em nossa sede. Eficiência e transparência em todo o processo."
+      },
+      {
+        "customerName": "Cláudia Mello Arruda",
+        "rating": 5,
+        "comment": "Minha casa inteligente ficou completa com o sistema solar deles. Tudo automatizado e funcionando bem."
+      }
+    ]
+  },
+  {
+    "companyName": "Sol Capixaba - Vitória",
+    "location": {
+      "city": "Vitória",
+      "state": "ES"
+    },
+    "logo": "logo_solcapixaba_vitoria.png",
+    "banner": "banner_solcapixaba_vitoria.jpg",
+    "description": "A Sol Capixaba - Vitória traz a força do sol para o Espírito Santo. Oferecemos soluções completas, desde o projeto inicial até a homologação junto à concessionária, para residências, comércios e indústrias.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Instalação Industrial de Sistemas Fotovoltaicos",
+      "Homologação de Projetos Solares"
+    ],
+    "reviews": [
+      {
+        "customerName": "Pedro Henrique Nunes",
+        "rating": 5,
+        "comment": "Processo de homologação foi super rápido com a ajuda deles. Equipe eficiente!"
+      },
+      {
+        "customerName": "Comércio Local Ltda.",
+        "rating": 4,
+        "comment": "Bom custo-benefício para a instalação no meu comércio. Satisfeito com o resultado."
+      }
+    ]
+  },
+  {
+    "companyName": "Goiás Solar Center - Goiânia",
+    "location": {
+      "city": "Goiânia",
+      "state": "GO"
+    },
+    "logo": "logo_goiassolar_goiania.png",
+    "banner": "banner_goiassolar_goiania.jpg",
+    "description": "Tecnologia e inovação em energia solar para Goiás. A Goiás Solar Center - Goiânia é especializada em usinas solares de pequeno e médio porte e sistemas off-grid para áreas rurais.",
+    "serviceCategories": [
+      "Projeto e Construção de Pequenas Usinas Solares (Mini Geração)",
+      "Sistemas Fotovoltaicos Off-Grid",
+      "Instalação Residencial de Painéis Solares",
+      "Projetos de Energia Solar para Agronegócio"
+    ],
+    "reviews": [
+      {
+        "customerName": "Fazenda Sol Nascente",
+        "rating": 5,
+        "comment": "Minha fazenda agora é autossuficiente em energia! Sistema off-grid perfeito da Goiás Solar."
+      },
+      {
+        "customerName": "InvestSolar Geração",
+        "rating": 5,
+        "comment": "Construíram nossa mini usina com muita competência. Retorno do investimento está ótimo."
+      }
+    ]
+  },
+  {
+    "companyName": "Ilha Solar - São Luís",
+    "location": {
+      "city": "São Luís",
+      "state": "MA"
+    },
+    "logo": "logo_ilhasolar_saoluis.png",
+    "banner": "banner_ilhasolar_saoluis.jpg",
+    "description": "A Ilha Solar - São Luís oferece as melhores soluções em energia fotovoltaica para o Maranhão. Projetos residenciais, comerciais e para o setor hoteleiro, com foco em durabilidade e performance.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Projetos para o Setor Hoteleiro"
+    ],
+    "reviews": [
+      {
+        "customerName": "Pousada Mar Aberto",
+        "rating": 5,
+        "comment": "Reduzimos drasticamente os custos de energia da pousada. A Ilha Solar foi a escolha certa."
+      },
+      {
+        "customerName": "Clarice Azevedo",
+        "rating": 4,
+        "comment": "Instalação residencial rápida e equipe atenciosa. Recomendo."
+      }
+    ]
+  },
+  {
+    "companyName": "Solar do Pantanal - Cuiabá",
+    "location": {
+      "city": "Cuiabá",
+      "state": "MT"
+    },
+    "logo": "logo_solardopantanal_cuiaba.png",
+    "banner": "banner_solardopantanal_cuiaba.jpg",
+    "description": "Aproveitando o sol forte do Centro-Oeste, a Solar do Pantanal - Cuiabá oferece sistemas de alta performance para residências, agronegócio e comércios. Especialistas em climatização solar.",
+    "serviceCategories": [
+      "Projetos de Energia Solar para Agronegócio",
+      "Instalação Residencial de Painéis Solares",
+      "Sistemas de Climatização com Energia Solar"
+    ],
+    "reviews": [
+      {
+        "customerName": "Agropecuária Pantaneira",
+        "rating": 5,
+        "comment": "Sistema robusto e eficiente para nossa sede. O calor de Cuiabá agora gera economia!"
+      },
+      {
+        "customerName": "Mariana Alves",
+        "rating": 4,
+        "comment": "Meu ar condicionado agora pesa menos na conta graças à climatização solar. Ótima ideia!"
+      }
+    ]
+  },
+  {
+    "companyName": "Campo Grande Solar Energy",
+    "location": {
+      "city": "Campo Grande",
+      "state": "MS"
+    },
+    "logo": "logo_campograndesolar_energy.png",
+    "banner": "banner_campograndesolar_energy.jpg",
+    "description": "Energia limpa e renovável para o Mato Grosso do Sul. A Campo Grande Solar Energy foca em projetos personalizados, consultoria e venda de kits solares completos para auto-instalação (com supervisão).",
+    "serviceCategories": [
+      "Consultoria em Eficiência Energética Solar",
+      "Venda de Kits Solares para Auto-Instalação",
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares"
+    ],
+    "reviews": [
+      {
+        "customerName": "Ricardo Farias (Engenheiro)",
+        "rating": 5,
+        "comment": "Comprei o kit e instalei com a supervisão deles. Foi uma ótima experiência e aprendizado."
+      },
+      {
+        "customerName": "Padaria Pão Quente",
+        "rating": 4,
+        "comment": "A consultoria nos ajudou a escolher o melhor sistema. Estamos muito satisfeitos."
+      }
+    ]
+  },
+  {
+    "companyName": "Minas Sol - Belo Horizonte",
+    "location": {
+      "city": "Belo Horizonte",
+      "state": "MG"
+    },
+    "logo": "logo_minassol_bh.png",
+    "banner": "banner_minassol_bh.jpg",
+    "description": "Tradição e inovação em energia solar para Minas Gerais. A Minas Sol - BH tem vasta experiência em projetos de todos os portes, incluindo soluções para o patrimônio histórico e integração arquitetônica.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Projetos de Integração Arquitetônica Solar",
+      "Consultoria para Patrimônio Histórico"
+    ],
+    "reviews": [
+      {
+        "customerName": "Museu da Inconfidência Solar",
+        "rating": 5,
+        "comment": "Solução elegante e eficiente para nosso prédio histórico. A Minas Sol foi muito cuidadosa."
+      },
+      {
+        "customerName": "Família Andrade",
+        "rating": 5,
+        "comment": "Projeto integrado perfeitamente à nossa casa. Qualidade e estética nota 1000!"
+      }
+    ]
+  },
+  {
+    "companyName": "Pará Energia Renovável - Belém",
+    "location": {
+      "city": "Belém",
+      "state": "PA"
+    },
+    "logo": "logo_paraenergia_belem.png",
+    "banner": "banner_paraenergia_belem.jpg",
+    "description": "A força da Amazônia gerando energia limpa. A Pará Energia Renovável - Belém é especialista em sistemas fotovoltaicos para a região, incluindo soluções para comunidades ribeirinhas e projetos de impacto social.",
+    "serviceCategories": [
+      "Projetos Solares para Comunidades Isoladas (Off-Grid)",
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Consultoria para Projetos de Impacto Social"
+    ],
+    "reviews": [
+      {
+        "customerName": "Comunidade Vila Esperança",
+        "rating": 5,
+        "comment": "A luz chegou em nossa comunidade graças à Pará Energia Renovável. Transformador!"
+      },
+      {
+        "customerName": "Instituto Socioambiental Sol da Floresta",
+        "rating": 5,
+        "comment": "Parceria incrível para levar energia limpa a quem mais precisa. Recomendamos fortemente."
+      }
+    ]
+  },
+  {
+    "companyName": "Sol Paraíba - João Pessoa",
+    "location": {
+      "city": "João Pessoa",
+      "state": "PB"
+    },
+    "logo": "logo_solparaiba_joaopessoa.png",
+    "banner": "banner_solparaiba_joaopessoa.jpg",
+    "description": "Energia solar com a qualidade que a Paraíba merece. A Sol Paraíba - João Pessoa oferece projetos completos, desde a análise de viabilidade até o pós-venda, com foco na satisfação do cliente.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Manutenção e Limpeza de Sistemas Solares",
+      "Análise de Viabilidade Técnica e Financeira"
+    ],
+    "reviews": [
+      {
+        "customerName": "Severino Cabral",
+        "rating": 5,
+        "comment": "Análise de viabilidade foi muito clara e o projeto superou as expectativas. Excelente!"
+      },
+      {
+        "customerName": "Condomínio Brisa do Mar",
+        "rating": 4,
+        "comment": "Instalação bem feita, equipe organizada. Estamos economizando bastante."
+      }
+    ]
+  },
+  {
+    "companyName": "Paraná Solar Systems - Curitiba",
+    "location": {
+      "city": "Curitiba",
+      "state": "PR"
+    },
+    "logo": "logo_paranasolar_curitiba.png",
+    "banner": "banner_paranasolar_curitiba.jpg",
+    "description": "Tecnologia alemã com toque paranaense. A Paraná Solar Systems - Curitiba é reconhecida pela qualidade dos equipamentos e pela precisão em seus projetos e instalações, atendendo todo o estado.",
+    "serviceCategories": [
+      "Venda de Equipamentos Solares de Alta Performance (Importados)",
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Projetos de Energia Solar para Indústria"
+    ],
+    "reviews": [
+      {
+        "customerName": "Indústria Metalúrgica Alfa",
+        "rating": 5,
+        "comment": "Equipamentos de altíssima qualidade e instalação impecável. A Paraná Solar é referência."
+      },
+      {
+        "customerName": "Heidi Müller",
+        "rating": 5,
+        "comment": "Sehr gut! Qualidade alemã que se reflete na eficiência do sistema. Recomendo."
+      }
+    ]
+  },
+  {
+    "companyName": "Pernambuco Solar Energy - Recife",
+    "location": {
+      "city": "Recife",
+      "state": "PE"
+    },
+    "logo": "logo_pernambucosolar_recife.png",
+    "banner": "banner_pernambucosolar_recife.jpg",
+    "description": "A energia do frevo agora é solar! A Pernambuco Solar Energy - Recife oferece soluções criativas e eficientes para residências, comércios e projetos culturais, com opções de financiamento facilitado.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Projetos Solares para Espaços Culturais",
+      "Financiamento e Soluções de Crédito para Energia Solar"
+    ],
+    "reviews": [
+      {
+        "customerName": "Centro Cultural Frevo Vivo",
+        "rating": 5,
+        "comment": "Nosso espaço agora é mais sustentável e econômico. Agradecemos à Pernambuco Solar Energy!"
+      },
+      {
+        "customerName": "Sílvia Abreu de Hollanda",
+        "rating": 4,
+        "comment": "Financiamento aprovado rapidamente e instalação concluída no prazo. Satisfeita!"
+      }
+    ]
+  },
+  {
+    "companyName": "Sol do Piauí - Teresina",
+    "location": {
+      "city": "Teresina",
+      "state": "PI"
+    },
+    "logo": "logo_soldopiaui_teresina.png",
+    "banner": "banner_soldopiaui_teresina.jpg",
+    "description": "A Sol do Piauí - Teresina transforma o calor piauiense em economia. Especialistas em projetos para altas temperaturas e otimização de performance, atendemos residências, comércios e agronegócio.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares (Otimizada para altas temperaturas)",
+      "Projetos de Energia Solar para Agronegócio",
+      "Manutenção Preventiva e Corretiva"
+    ],
+    "reviews": [
+      {
+        "customerName": "Fazenda Carnaúba Dourada",
+        "rating": 5,
+        "comment": "Mesmo com o calor intenso, o sistema funciona perfeitamente. A Sol do Piauí sabe o que faz."
+      },
+      {
+        "customerName": "Antônia Teles",
+        "rating": 4,
+        "comment": "Manutenção foi eficiente e o sistema está como novo. Recomendo o serviço."
+      }
+    ]
+  },
+  {
+    "companyName": "Rio Power Solar - Rio de Janeiro",
+    "location": {
+      "city": "Rio de Janeiro",
+      "state": "RJ"
+    },
+    "logo": "logo_riopowersolar_rio.png",
+    "banner": "banner_riopowersolar_rio.jpg",
+    "description": "Energia solar com a beleza do Rio. A Rio Power Solar oferece projetos sofisticados e integrados à arquitetura urbana, para residências, coberturas e negócios na cidade maravilhosa.",
+    "serviceCategories": [
+      "Projetos de Integração Arquitetônica Solar Urbana",
+      "Instalação em Coberturas e Condomínios Verticais",
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares"
+    ],
+    "reviews": [
+      {
+        "customerName": "Condomínio Vista Cristo",
+        "rating": 5,
+        "comment": "Projeto para nosso condomínio ficou espetacular e funcional. A Rio Power Solar é top!"
+      },
+      {
+        "customerName": "Isabela Bicalho",
+        "rating": 5,
+        "comment": "Minha cobertura agora gera energia! Design e eficiência, tudo perfeito."
+      }
+    ]
+  },
+  {
+    "companyName": "Potiguar Solar - Natal",
+    "location": {
+      "city": "Natal",
+      "state": "RN"
+    },
+    "logo": "logo_potiguarsolar_natal.png",
+    "banner": "banner_potiguarsolar_natal.jpg",
+    "description": "O sol forte do Rio Grande do Norte a seu favor. A Potiguar Solar - Natal é especialista em projetos para residências de veraneio, pousadas e comércios, com foco em maximizar o aproveitamento solar.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares (Incluindo casas de veraneio)",
+      "Projetos para Pousadas e Pequenos Hotéis",
+      "Consultoria em Eficiência Energética Solar"
+    ],
+    "reviews": [
+      {
+        "customerName": "Pousada Dunas Douradas",
+        "rating": 5,
+        "comment": "Excelente investimento para nossa pousada. A Potiguar Solar nos deu todo o suporte."
+      },
+      {
+        "customerName": "Família Medeiros Veras",
+        "rating": 4,
+        "comment": "Nossa casa de praia agora tem energia solar. Muito bom!"
+      }
+    ]
+  },
+  {
+    "companyName": "Energia Gaúcha Solar - Porto Alegre",
+    "location": {
+      "city": "Porto Alegre",
+      "state": "RS"
+    },
+    "logo": "logo_energiagauchasolar_poa.png",
+    "banner": "banner_energiagauchasolar_poa.jpg",
+    "description": "Do pampa ao litoral, a Energia Gaúcha Solar - Porto Alegre oferece soluções robustas e confiáveis. Especialistas em sistemas para climas variados e projetos de grande porte para a indústria e agronegócio gaúcho.",
+    "serviceCategories": [
+      "Instalação Industrial de Sistemas Fotovoltaicos",
+      "Projetos de Energia Solar para Agronegócio",
+      "Instalação Residencial de Painéis Solares",
+      "Sistemas de Aquecimento Solar Combinado"
+    ],
+    "reviews": [
+      {
+        "customerName": "Vinícola Sol do Pampa",
+        "rating": 5,
+        "comment": "Projeto para nossa vinícola foi um sucesso. A Energia Gaúcha Solar demonstrou muita capacidade técnica."
+      },
+      {
+        "customerName": "Carlos Alberto Fagundes",
+        "rating": 4,
+        "comment": "Sistema de aquecimento solar combinado com fotovoltaico ficou ótimo. Economia em dobro."
+      }
+    ]
+  },
+  {
+    "companyName": "Rondônia Soluções Solares - Porto Velho",
+    "location": {
+      "city": "Porto Velho",
+      "state": "RO"
+    },
+    "logo": "logo_rondoniasolar_portovelho.png",
+    "banner": "banner_rondoniasolar_portovelho.jpg",
+    "description": "Desbravando a fronteira da energia limpa em Rondônia. A Rondônia Soluções Solares - Porto Velho oferece projetos para áreas urbanas e rurais, com foco em sistemas off-grid e soluções para comunidades.",
+    "serviceCategories": [
+      "Sistemas Fotovoltaicos Off-Grid",
+      "Projetos Solares para Comunidades Isoladas",
+      "Instalação Residencial de Painéis Solares",
+      "Instalação de Bombeamento Solar Rural"
+    ],
+    "reviews": [
+      {
+        "customerName": "Seringal Sustentável Ltda.",
+        "rating": 5,
+        "comment": "Levamos energia para o meio da floresta com o sistema off-grid deles. Fantástico!"
+      },
+      {
+        "customerName": "Associação dos Pequenos Produtores do Madeira",
+        "rating": 5,
+        "comment": "O bombeamento solar mudou a realidade da nossa produção. Agradecemos à Rondônia Soluções Solares."
+      }
+    ]
+  },
+  {
+    "companyName": "Boa Vista Solar - Roraima",
+    "location": {
+      "city": "Boa Vista",
+      "state": "RR"
+    },
+    "logo": "logo_boavistasolar_roraima.png",
+    "banner": "banner_boavistasolar_roraima.jpg",
+    "description": "Energia solar no extremo norte do Brasil. A Boa Vista Solar - Roraima é especializada em projetos adaptados ao clima equatorial, oferecendo soluções para residências, comércios e iniciativas governamentais.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Consultoria para Projetos Governamentais de Energia Solar"
+    ],
+    "reviews": [
+      {
+        "customerName": "Secretaria de Energia de Roraima",
+        "rating": 4,
+        "comment": "Consultoria técnica de qualidade para nossos projetos de expansão de energia limpa."
+      },
+      {
+        "customerName": "Família Macuxi Solar",
+        "rating": 5,
+        "comment": "Atendimento diferenciado e projeto que realmente funciona bem no nosso clima."
+      }
+    ]
+  },
+  {
+    "companyName": "Santa Catarina Solar Energy - Florianópolis",
+    "location": {
+      "city": "Florianópolis",
+      "state": "SC"
+    },
+    "logo": "logo_scsolarenergy_florianopolis.png",
+    "banner": "banner_scsolarenergy_florianopolis.jpg",
+    "description": "A Ilha da Magia iluminada pelo sol. A Santa Catarina Solar Energy - Florianópolis oferece projetos de alta tecnologia com foco em eficiência e estética, para residências e empreendimentos turísticos.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares de Alto Padrão",
+      "Projetos para Empreendimentos Turísticos (Hotéis, Pousadas)",
+      "Sistemas de Monitoramento e Automação Solar",
+      "Consultoria em Eficiência Energética Solar"
+    ],
+    "reviews": [
+      {
+        "customerName": "Resort Praia Mole Solar",
+        "rating": 5,
+        "comment": "Projeto de grande porte para nosso resort foi executado com perfeição. Economia e sustentabilidade."
+      },
+      {
+        "customerName": "Mariana Bittencourt",
+        "rating": 5,
+        "comment": "Minha casa na praia ficou ainda mais charmosa e econômica com os painéis solares. Adorei!"
+      }
+    ]
+  },
+  {
+    "companyName": "Sampa Solar - São Paulo",
+    "location": {
+      "city": "São Paulo",
+      "state": "SP"
+    },
+    "logo": "logo_sampasolar_saopaulo.png",
+    "banner": "banner_sampasolar_saopaulo.jpg",
+    "description": "A metrópole que não para, agora com mais energia solar. A Sampa Solar - São Paulo é especialista em soluções urbanas, desde grandes instalações comerciais e industriais até projetos residenciais compactos e eficientes.",
+    "serviceCategories": [
+      "Instalação Industrial de Sistemas Fotovoltaicos",
+      "Instalação Comercial de Painéis Solares (Prédios, Shoppings)",
+      "Instalação Residencial de Painéis Solares (Apartamentos, Casas)",
+      "Instalação de Carregadores para Carros Elétricos"
+    ],
+    "reviews": [
+      {
+        "customerName": "Edifício Paulistano Prime",
+        "rating": 5,
+        "comment": "Reduzimos o custo do condomínio com a energia solar nas áreas comuns. Sampa Solar foi excelente."
+      },
+      {
+        "customerName": "Fábrica de Ideias S.A.",
+        "rating": 5,
+        "comment": "Grande projeto industrial entregue no prazo e com performance acima do esperado. Recomendo."
+      },
+      {
+        "customerName": "Beatriz Pinheiro",
+        "rating": 4,
+        "comment": "Consegui instalar painéis no meu apartamento. Projeto bem adaptado pela Sampa Solar."
+      }
+    ]
+  },
+  {
+    "companyName": "Sergipe Soluções Solares - Aracaju",
+    "location": {
+      "city": "Aracaju",
+      "state": "SE"
+    },
+    "logo": "logo_sergipesolar_aracaju.png",
+    "banner": "banner_sergipesolar_aracaju.jpg",
+    "description": "O sol de Sergipe trabalhando por você. A Sergipe Soluções Solares - Aracaju oferece projetos completos e personalizados para residências, comércios e agronegócio, com as melhores condições de pagamento.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares",
+      "Instalação Comercial de Painéis Solares",
+      "Projetos de Energia Solar para Agronegócio",
+      "Financiamento e Soluções de Crédito para Energia Solar"
+    ],
+    "reviews": [
+      {
+        "customerName": "Fazenda Cajueiro Real",
+        "rating": 5,
+        "comment": "Projeto para nossa fazenda ficou ótimo! Equipe da Sergipe Solar muito competente."
+      },
+      {
+        "customerName": "Larissa Andrade",
+        "rating": 4,
+        "comment": "Facilidade no pagamento e instalação rápida. Estou muito contente com a economia."
+      }
+    ]
+  },
+  {
+    "companyName": "Tocantins EcoSolar - Palmas",
+    "location": {
+      "city": "Palmas",
+      "state": "TO"
+    },
+    "logo": "logo_tocantinsecosolar_palmas.png",
+    "banner": "banner_tocantinsecosolar_palmas.jpg",
+    "description": "Energia limpa e sustentável para o coração do Brasil. A Tocantins EcoSolar - Palmas é especializada em projetos para o clima quente e úmido da região, oferecendo soluções para residências, comércios e sistemas de bombeamento para agricultura.",
+    "serviceCategories": [
+      "Instalação Residencial de Painéis Solares (Adaptada ao clima local)",
+      "Instalação Comercial de Painéis Solares",
+      "Instalação de Bombeamento Solar Rural",
+      "Manutenção e Limpeza de Sistemas Solares"
+    ],
+    "reviews": [
+      {
+        "customerName": "Chácara Água Viva",
+        "rating": 5,
+        "comment": "O sistema de bombeamento solar resolveu nosso problema de irrigação. A Tocantins EcoSolar foi 10!"
+      },
+      {
+        "customerName": "Supermercado Preço Bom",
+        "rating": 4,
+        "comment": "Redução considerável na conta de energia do nosso supermercado. Equipe atenciosa."
+      },
+      {
+        "customerName": "Marieta Ferreira Leal",
+        "rating": 5,
+        "comment": "Meu sistema residencial está funcionando perfeitamente, mesmo com o calorão de Palmas. Recomendo!"
+      }
+    ]
+  }
+]
