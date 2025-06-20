@@ -80,7 +80,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           {/* <h1 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8">
             Encontre Empresas de Energia Solar
           </h1> */}
-          <CompanySearch />
+          <CompanySearch onNavigate={onNavigate} />
         </div>
       </section>
 
