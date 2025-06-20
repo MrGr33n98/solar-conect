@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from '../contexts/AuthContext';
 import { Sun, Zap, Shield, TrendingUp, Star, ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
+import { CompanySearch } from './CompanySearch'; // Added
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -71,6 +72,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </header>
+
+      {/* New Search Section - Placed at the top of the main content */}
+      <section id="search-empresas" className="py-12 md:py-16 bg-gray-100"> {/* Example styling */}
+        <div className="container mx-auto px-6">
+          {/* Optional: Add a title for the search section if desired */}
+          {/* <h1 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-8">
+            Encontre Empresas de Energia Solar
+          </h1> */}
+          <CompanySearch />
+        </div>
+      </section>
 
       {/* Hero Section */}
       <section id="inicio" className="bg-gradient-to-br from-blue-600 via-blue-700 to-green-600 text-white py-20 px-6">
