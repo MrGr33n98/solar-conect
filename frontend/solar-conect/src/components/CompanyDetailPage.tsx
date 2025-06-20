@@ -72,6 +72,18 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
   const [company, setCompany] = useState<Company | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>('visaoGeral'); // Default tab
+
+  const [contactFormData, setContactFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    propertyType: 'Residencial', // Default value
+    averageBill: '',
+    message: ''
+  });
+  const [formSubmitStatus, setFormSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Helper function to render stars for reviews
   const renderStarsDisplay = (rating: number, starSize: string = "h-5 w-5") => {
@@ -92,6 +104,105 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
   // This state simulates having access to the larger dataset.
   // In this subtask's isolated run, it will use the JULES_LOADED_FICTIONAL_DATA placeholder.
   const [internalAllCompanies, setInternalAllCompanies] = useState<Company[]>(JULES_LOADED_FICTIONAL_DATA);
+
+  // Analytics Page View Effect
+  useEffect(() => {
+    if (company && company.id) { // Ensure company data is loaded
+      const pageViewData = {
+        type: 'page_view',
+        pageTitle: document.title,
+        pageUrl: window.location.href,
+        companyId: company.id,
+        companyName: company.companyName,
+        // userId: authContext?.user?.id, // Conceptual: if auth context is available
+        timestamp_client: new Date().toISOString()
+      };
+      console.log("ANALYTICS EVENT (Conceptual): page_view", pageViewData);
+
+      // --- Conceptual Firestore Interaction ---
+      // Describe what should happen:
+      // Add a document to `analytics` collection (or `artifacts/{appId}/analytics`):
+      // {
+      //   type: 'page_view',
+      //   pageUrl: window.location.href,
+      //   pageTitle: document.title, // or specific like `Company Detail: ${company.companyName}`
+      //   companyId: company.id,
+      //   companyName: company.companyName,
+      //   // userId: authContext.user?.id, // If user is logged in and context is available
+      //   timestamp: serverTimestamp() // Use Firebase serverTimestamp for actual implementation
+      // }
+      // --- End Conceptual Firestore Interaction ---
+    }
+  }, [company]); // Run when company data is successfully set/changed
+
+
+  const tabs = [
+    { id: 'visaoGeral', label: 'Visão Geral' },
+    { id: 'depoimentos', label: 'Depoimentos' },
+    { id: 'precoGarantia', label: 'Preço & Garantia' },
+    { id: 'servicosMarcas', label: 'Serviços & Marcas' },
+    { id: 'projetos', label: 'Projetos Reais' }, // Changed label for clarity
+    { id: 'contato', label: 'Solicitar Orçamento' }
+  ];
+
+  const handleContactInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setContactFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleContactFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormSubmitStatus(null);
+
+    const leadData = {
+      ...contactFormData,
+      companyId: company?.id,
+      companyName: company?.companyName,
+      submittedAt: new Date().toISOString()
+    };
+
+    console.log("Lead Data to be submitted:", leadData); // Simulate submission
+
+    // Conceptual Lead Submission Analytics
+    const analyticsLeadData = {
+      type: 'lead_submission',
+      companyId: company?.id,
+      companyName: company?.companyName,
+      leadFormFieldsSummary: { // Log only non-sensitive summary
+        propertyType: leadData.propertyType,
+        // averageBillProvided: !!leadData.averageBill
+      },
+      // userId: authContext?.user?.id, // Conceptual
+      timestamp_client: new Date().toISOString()
+    };
+    console.log("ANALYTICS EVENT (Conceptual): lead_submission", analyticsLeadData);
+
+    // --- Conceptual Firestore Interaction ---
+    // Describe what should happen:
+    // Add a document to `analytics` collection (or `artifacts/{appId}/analytics`):
+    // {
+    //   type: 'lead_submission',
+    //   companyId: company?.id,
+    //   companyName: company?.companyName,
+    //   // userId: authContext.user?.id, // If user is logged in
+    //   // leadId: newLeadDocumentId, // ID of the lead document if just created in Firestore
+    //   formDataSummary: {
+    //       propertyType: leadData.propertyType,
+    //       // averageBillProvided: !!leadData.averageBill // Example of logging boolean flags
+    //   },
+    //   timestamp: serverTimestamp() // Use Firebase serverTimestamp for actual implementation
+    // }
+    // --- End Conceptual Firestore Interaction ---
+
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    setFormSubmitStatus({ message: "Solicitação enviada com sucesso! A empresa entrará em contato em breve.", type: 'success' });
+    setContactFormData({ name: '', email: '', phone: '', propertyType: 'Residencial', averageBill: '', message: '' }); // Reset form
+
+    setIsSubmitting(false);
+  };
 
   useEffect(() => {
     // In a real app, if internalAllCompanies is empty, you might fetch all company data here,
@@ -214,6 +325,7 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
         )}
 
         <div className="bg-white p-6 rounded-lg shadow-xl">
+            {/* Company Header (Logo, Name, Location, Website) */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 mb-6">
               {company.logo && (
                 <img
@@ -227,194 +339,248 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
                   {company.companyName}
                 </h1>
                 <p className="text-md text-gray-600 mt-1">{company.location.city}, {company.location.state}</p>
-                {company.website && <p className="text-sm text-blue-600 hover:underline mt-1"><a href={company.website} target="_blank" rel="noopener noreferrer">{company.website}</a></p>}
+                {company.website && <p className="text-sm text-blue-600 hover:underline mt-1"><a href={company.website.startsWith('http') ? company.website : `https://${company.website}`} target="_blank" rel="noopener noreferrer">{company.website}</a></p>}
               </div>
             </div>
 
-            {/* Full Location */}
-            <div className="mt-6 border-t pt-6">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-3">Endereço</h2>
-              <address className="not-italic text-gray-600">
-                {company.location.addressLine1 && <p>{company.location.addressLine1}</p>}
-                {company.location.addressLine2 && <p>{company.location.addressLine2}</p>}
-                <p>{company.location.city}, {company.location.state} {company.location.postalCode && `- ${company.location.postalCode}`}</p>
-              </address>
+            {/* Tab Navigation */}
+            <div className="border-b border-gray-200 mb-6">
+              <nav className="-mb-px flex space-x-4 md:space-x-6 overflow-x-auto" aria-label="Tabs">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`whitespace-nowrap py-3 px-2 md:px-4 border-b-2 font-medium text-sm transition-colors duration-150
+                      ${activeTab === tab.id
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      }
+                    `}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </nav>
             </div>
 
-            {/* Description */}
-            <div className="mt-6 border-t pt-6">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-3">Sobre {company.companyName}</h2>
-              <p className="text-gray-700 leading-relaxed whitespace-pre-line">{company.description || 'Nenhuma descrição disponível.'}</p>
-            </div>
-
-            {/* Contact Information */}
-            <div className="mt-6 border-t pt-6">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-3">Contato</h2>
-              <ul className="space-y-2 text-gray-600">
-                {company.phone && (
-                  <li>
-                    <strong>Telefone:</strong> <a href={`tel:${company.phone}`} className="text-blue-600 hover:underline">{company.phone}</a>
-                  </li>
-                )}
-                {company.email && ( // Assuming 'email' is the contact email from fictional data
-                  <li>
-                    <strong>E-mail:</strong> <a href={`mailto:${company.email}`} className="text-blue-600 hover:underline">{company.email}</a>
-                  </li>
-                )}
-                {company.website && ( // company.website is already displayed with name, but can be repeated here if desired
-                  <li>
-                    <strong>Website:</strong> <a href={company.website.startsWith('http') ? company.website : `https://${company.website}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{company.website}</a>
-                  </li>
-                )}
-              </ul>
-              {(!company.phone && !company.email && !company.website) && <p className="text-gray-500 italic">Nenhuma informação de contato disponível.</p>}
-            </div>
-
-            {/* Service Categories - already present, ensure it's after new sections or integrate as needed */}
-            <div className="mt-6 border-t pt-6">
-                 <h2 className="text-2xl font-semibold text-gray-700 mb-3">Categorias de Serviço</h2>
-                 {company.serviceCategories && company.serviceCategories.length > 0 ? (
-                    <div className="flex flex-wrap gap-2">
-                      {company.serviceCategories.map((category, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full shadow-sm"
-                        >
-                          {category}
-                        </span>
-                      ))}
-                    </div>
-                 ) : (
-                    <p className="text-gray-600 italic">Nenhuma categoria de serviço informada.</p>
-                 )}
-            </div>
-
-            {/* Detailed Comparator Fields Section */}
-            <div className="mt-6 border-t pt-6">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-4">Diferenciais e Detalhes</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-gray-600">
-
-                {company.valueIndicator && (
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-800">Posicionamento de Valor:</h3>
-                    <p>{company.valueIndicator}</p>
-                  </div>
-                )}
-
-                {company.averagePricePerKwp && (
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-800">Preço Médio Estimado por kWp:</h3>
-                    <p>{company.averagePricePerKwp.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
-                  </div>
-                )}
-
-                {/* Strengths: Render as list if array, or paragraph if string */}
-                {company.strengths && (
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-800">Pontos Fortes:</h3>
-                    {Array.isArray(company.strengths) && company.strengths.length > 0 ? (
-                      <ul className="list-disc list-inside ml-4">
-                        {company.strengths.map((item, index) => <li key={`strength-${index}`}>{item}</li>)}
-                      </ul>
-                    ) : typeof company.strengths === 'string' && company.strengths.trim() !== '' ? (
-                      <p className="whitespace-pre-line">{company.strengths}</p>
-                    ) : <p className="italic">Não informado.</p>}
-                  </div>
-                )}
-
-                {/* Services Offered (Detailed): Render as list if array, or paragraph if string */}
-                {/* This assumes 'servicesOffered' might be more detailed than 'serviceCategories' */}
-                {company.servicesOffered && (
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-800">Serviços Detalhados:</h3>
-                    {Array.isArray(company.servicesOffered) && company.servicesOffered.length > 0 ? (
-                      <ul className="list-disc list-inside ml-4">
-                        {company.servicesOffered.map((item, index) => <li key={`service-${index}`}>{item}</li>)}
-                      </ul>
-                    ) : typeof company.servicesOffered === 'string' && company.servicesOffered.trim() !== '' ? (
-                      <p className="whitespace-pre-line">{company.servicesOffered}</p>
-                    ) : <p className="italic">Não informado.</p>}
-                  </div>
-                )}
-
-                {/* Brands Worked With: Render as list if array, or paragraph if string */}
-                {company.brandsWorkedWith && (
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-800">Marcas Trabalhadas:</h3>
-                    {Array.isArray(company.brandsWorkedWith) && company.brandsWorkedWith.length > 0 ? (
-                      <ul className="list-disc list-inside ml-4">
-                        {company.brandsWorkedWith.map((item, index) => <li key={`brand-${index}`}>{item}</li>)}
-                      </ul>
-                    ) : typeof company.brandsWorkedWith === 'string' && company.brandsWorkedWith.trim() !== '' ? (
-                      <p className="whitespace-pre-line">{company.brandsWorkedWith}</p>
-                    ) : <p className="italic">Não informado.</p>}
-                  </div>
-                )}
-
-                {/* Warranty Details (Text Field) */}
-                {company.warrantyDetails && typeof company.warrantyDetails === 'string' && (
-                   <div>
-                    <h3 className="text-lg font-medium text-gray-800">Detalhes da Garantia (Texto):</h3>
-                    <p className="whitespace-pre-line">{company.warrantyDetails}</p>
-                  </div>
-                )}
-
-                {/* Warranty Years (Object from Fictional Data) */}
-                {company.warrantyYears && typeof company.warrantyYears === 'object' &&
-                 (company.warrantyYears.painel || company.warrantyYears.inversor || company.warrantyYears.instalacao) && (
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-800">Garantias Detalhadas (Anos):</h3>
-                    {company.warrantyYears.painel && <p><strong>Painel:</strong> {company.warrantyYears.painel} anos</p>}
-                    {company.warrantyYears.inversor && <p><strong>Inversor:</strong> {company.warrantyYears.inversor} anos</p>}
-                    {company.warrantyYears.instalacao && <p><strong>Instalação:</strong> {company.warrantyYears.instalacao} anos</p>}
-                  </div>
-                )}
-              </div>
-              {(!company.valueIndicator && !company.averagePricePerKwp && !company.strengths && !company.servicesOffered && !company.brandsWorkedWith && !company.warrantyDetails && !company.warrantyYears ) &&
-                <p className="text-gray-500 italic mt-4">Nenhum detalhe adicional ou diferencial informado.</p>
-              }
-            </div>
-
-            <p className="mt-8 text-center text-gray-500 italic">
-                (Seção de Avaliações de Clientes será implementada na próxima etapa.)
-            </p>
-
-            {/* Customer Reviews Section */}
-            <div className="mt-6 border-t pt-6">
-              <h2 className="text-2xl font-semibold text-gray-700 mb-4">Avaliações de Clientes</h2>
-              {company.reviews && company.reviews.length > 0 ? (
-                <>
-                  <div className="mb-6 p-4 bg-gray-100 rounded-lg flex flex-col sm:flex-row items-center justify-between gap-4 shadow">
-                    <div>
-                      <span className="text-3xl font-bold text-gray-800">
-                        {(company.reviews.reduce((acc, review) => acc + review.rating, 0) / company.reviews.length).toFixed(1)}
-                      </span>
-                      <span className="text-gray-600"> / 5</span>
-                      {renderStarsDisplay(company.reviews.reduce((acc, review) => acc + review.rating, 0) / company.reviews.length, "h-6 w-6")}
-                    </div>
-                    <p className="text-gray-700 font-medium">
-                      Baseado em {company.reviews.length} {company.reviews.length === 1 ? 'avaliação' : 'avaliações'}
-                    </p>
-                  </div>
-
-                  <div className="space-y-6">
-                    {company.reviews.map((review, index) => (
-                      <div key={index} className="p-4 border border-gray-200 rounded-lg shadow-sm bg-white hover:shadow-md transition-shadow">
-                        <div className="flex items-center mb-2">
-                          {/* Placeholder for customer avatar if available in future */}
-                          {/* <img src="/path/to/avatar.png" alt={review.customerName} className="w-10 h-10 rounded-full mr-3" /> */}
-                          <div>
-                            <h4 className="font-semibold text-gray-800">{review.customerName}</h4>
-                            {renderStarsDisplay(review.rating)}
-                          </div>
+            {/* Tab Content */}
+            <div className="mt-6">
+              {activeTab === 'visaoGeral' && (
+                <div id="visaoGeralContent" className="space-y-6 animate-fadeIn">
+                  {/* Description Section JSX */}
+                  <section>
+                    <h3 className="text-xl font-semibold text-gray-700 mb-2">Sobre a Empresa</h3>
+                    <p className="text-gray-600 leading-relaxed whitespace-pre-line">{company.description || 'Nenhuma descrição disponível.'}</p>
+                  </section>
+                  {/* Location Section JSX */}
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-700 mb-2">Endereço</h3> {/* Changed to text-lg for better hierarchy */}
+                    <address className="not-italic text-gray-600">
+                      {company.location.addressLine1 && <p>{company.location.addressLine1}</p>}
+                      {company.location.addressLine2 && <p>{company.location.addressLine2}</p>}
+                      <p>{company.location.city}, {company.location.state} {company.location.postalCode && `- ${company.location.postalCode}`}</p>
+                    </address>
+                  </section>
+                   {/* Strengths (from "Diferenciais e Detalhes") JSX */}
+                  {company.strengths && (
+                    <section>
+                      <h3 className="text-lg font-semibold text-gray-700 mb-2">Pontos Fortes</h3> {/* Changed to text-lg */}
+                      {Array.isArray(company.strengths) && company.strengths.length > 0 ? (
+                        <ul className="list-disc list-inside ml-4 text-gray-600">
+                          {company.strengths.map((item, index) => <li key={`strength-${index}`}>{item}</li>)}
+                        </ul>
+                      ) : typeof company.strengths === 'string' && company.strengths.trim() !== '' ? (
+                        <p className="whitespace-pre-line text-gray-600">{company.strengths}</p>
+                      ) : <p className="italic text-gray-500">Não informado.</p>}
+                    </section>
+                  )}
+                  {/* Contact Info (moved to Visão Geral for quick access) */}
+                  <section>
+                     <h3 className="text-lg font-semibold text-gray-700 mb-2">Informações de Contato</h3> {/* Changed to text-lg */}
+                     <ul className="space-y-1 text-gray-600">
+                        {company.phone && <li><strong>Telefone:</strong> <a href={`tel:${company.phone}`} className="text-blue-600 hover:underline">{company.phone}</a></li>}
+                        {company.email && <li><strong>E-mail:</strong> <a href={`mailto:${company.email}`} className="text-blue-600 hover:underline">{company.email}</a></li>}
+                        {/* Website is already in header, but can be repeated if desired */}
+                     </ul>
+                     {(!company.phone && !company.email) && <p className="text-gray-500 italic">Nenhuma informação de contato primário disponível.</p>}
+                  </section>
+                </div>
+              )}
+              {activeTab === 'depoimentos' && (
+                <div id="depoimentosContent" className="animate-fadeIn">
+                  {/* Entire Reviews Section JSX (average + list) */}
+                  <h3 className="text-xl font-semibold text-gray-700 mb-4">Avaliações de Clientes</h3>
+                  {company.reviews && company.reviews.length > 0 ? (
+                    <>
+                      <div className="mb-6 p-4 bg-gray-50 rounded-lg flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm border border-gray-200">
+                        <div>
+                          <span className="text-3xl font-bold text-gray-800">
+                            {(company.reviews.reduce((acc, review) => acc + review.rating, 0) / company.reviews.length).toFixed(1)}
+                          </span>
+                          <span className="text-gray-600"> / 5</span>
+                          {renderStarsDisplay(company.reviews.reduce((acc, review) => acc + review.rating, 0) / company.reviews.length, "h-6 w-6")}
                         </div>
-                        <p className="text-gray-600 italic leading-relaxed">"{review.comment}"</p>
+                        <p className="text-gray-700 font-medium">
+                          Baseado em {company.reviews.length} {company.reviews.length === 1 ? 'avaliação' : 'avaliações'}
+                        </p>
                       </div>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <p className="text-gray-600 italic">Esta empresa ainda não possui avaliações.</p>
+                      <div className="space-y-6">
+                        {company.reviews.map((review, index) => (
+                          <div key={index} className="p-4 border border-gray-200 rounded-lg shadow-sm bg-white hover:shadow-md transition-shadow">
+                            <div className="flex items-center mb-2">
+                              <div>
+                                <h4 className="font-semibold text-gray-800">{review.customerName}</h4>
+                                {renderStarsDisplay(review.rating)}
+                              </div>
+                            </div>
+                            <p className="text-gray-600 italic leading-relaxed">"{review.comment}"</p>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-gray-600 italic">Esta empresa ainda não possui avaliações.</p>
+                  )}
+                </div>
+              )}
+              {activeTab === 'precoGarantia' && (
+                <div id="precoGarantiaContent" className="space-y-6 animate-fadeIn">
+                  <h3 className="text-xl font-semibold text-gray-700 mb-2">Informações de Preço e Garantia</h3>
+                  {company.averagePricePerKwp && (
+                    <section>
+                      <h4 className="text-lg font-medium text-gray-800">Preço Médio Estimado por kWp:</h4>
+                      <p className="text-gray-600">{company.averagePricePerKwp.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                    </section>
+                  )}
+                  {company.valueIndicator && (
+                     <section>
+                      <h4 className="text-lg font-medium text-gray-800">Posicionamento de Valor:</h4>
+                      <p className="text-gray-600">{company.valueIndicator}</p>
+                    </section>
+                  )}
+                  {company.warrantyDetails && typeof company.warrantyDetails === 'string' && (
+                     <section>
+                      <h4 className="text-lg font-medium text-gray-800">Detalhes da Garantia (Texto):</h4>
+                      <p className="whitespace-pre-line text-gray-600">{company.warrantyDetails}</p>
+                    </section>
+                  )}
+                  {company.warrantyYears && typeof company.warrantyYears === 'object' &&
+                   (company.warrantyYears.painel || company.warrantyYears.inversor || company.warrantyYears.instalacao) && (
+                    <section>
+                      <h4 className="text-lg font-medium text-gray-800">Garantias Detalhadas (Anos):</h3>
+                      {company.warrantyYears.painel && <p className="text-gray-600"><strong>Painel:</strong> {company.warrantyYears.painel} anos</p>}
+                      {company.warrantyYears.inversor && <p className="text-gray-600"><strong>Inversor:</strong> {company.warrantyYears.inversor} anos</p>}
+                      {company.warrantyYears.instalacao && <p className="text-gray-600"><strong>Instalação:</strong> {company.warrantyYears.instalacao} anos</p>}
+                    </section>
+                  )}
+                   {(!company.averagePricePerKwp && !company.valueIndicator && !company.warrantyDetails && !company.warrantyYears) &&
+                     <p className="text-gray-500 italic mt-4">Nenhuma informação de preço ou garantia detalhada.</p>
+                   }
+                </div>
+              )}
+              {activeTab === 'servicosMarcas' && (
+                <div id="servicosMarcasContent" className="space-y-6 animate-fadeIn">
+                  <h3 className="text-xl font-semibold text-gray-700 mb-2">Serviços Oferecidos e Marcas Trabalhadas</h3>
+                  <section>
+                    <h4 className="text-lg font-medium text-gray-800">Categorias de Serviço:</h4>
+                    {company.serviceCategories && company.serviceCategories.length > 0 ? (
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {company.serviceCategories.map((category, index) => (
+                          <span key={index} className="px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full shadow-sm">{category}</span>
+                        ))}
+                      </div>
+                    ) : <p className="text-gray-600 italic">Nenhuma categoria de serviço informada.</p>}
+                  </section>
+                  {company.servicesOffered && (
+                    <section>
+                      <h4 className="text-lg font-medium text-gray-800">Serviços Detalhados:</h4>
+                      {Array.isArray(company.servicesOffered) && company.servicesOffered.length > 0 ? (
+                        <ul className="list-disc list-inside ml-4 text-gray-600">
+                          {company.servicesOffered.map((item, index) => <li key={`service-${index}`}>{item}</li>)}
+                        </ul>
+                      ) : typeof company.servicesOffered === 'string' && company.servicesOffered.trim() !== '' ? (
+                        <p className="whitespace-pre-line text-gray-600">{company.servicesOffered}</p>
+                      ) : <p className="italic text-gray-500">Não informado.</p>}
+                    </section>
+                  )}
+                  {company.brandsWorkedWith && (
+                    <section>
+                      <h4 className="text-lg font-medium text-gray-800">Marcas Trabalhadas:</h4>
+                      {Array.isArray(company.brandsWorkedWith) && company.brandsWorkedWith.length > 0 ? (
+                        <ul className="list-disc list-inside ml-4 text-gray-600">
+                          {company.brandsWorkedWith.map((item, index) => <li key={`brand-${index}`}>{item}</li>)}
+                        </ul>
+                      ) : typeof company.brandsWorkedWith === 'string' && company.brandsWorkedWith.trim() !== '' ? (
+                        <p className="whitespace-pre-line text-gray-600">{company.brandsWorkedWith}</p>
+                      ) : <p className="italic text-gray-500">Não informado.</p>}
+                    </section>
+                  )}
+                </div>
+              )}
+              {activeTab === 'projetos' && (
+                <div id="projetosContent" className="animate-fadeIn">
+                  <h3 className="text-xl font-semibold text-gray-700 mb-3">Projetos Realizados</h3>
+                  <p className="text-gray-600 italic">Galeria de projetos e estudos de caso será exibida aqui em breve.</p>
+                  {/* Placeholder for project images/details */}
+                </div>
+              )}
+              {activeTab === 'contato' && (
+                <div id="contatoContent" className="animate-fadeIn">
+                  {/* Contact/Quote Form JSX */}
+                  <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6 text-center">
+                    Solicite um Orçamento Personalizado para {company.companyName}
+                  </h2>
+                  {formSubmitStatus && (
+                    <div className={`p-4 mb-4 rounded-md text-center ${formSubmitStatus.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                      {formSubmitStatus.message}
+                    </div>
+                  )}
+                  {(!formSubmitStatus || formSubmitStatus.type === 'error') && company && (
+                    <form onSubmit={handleContactFormSubmit} className="space-y-6">
+                      {/* Form fields as previously defined */}
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label htmlFor="contact_name" className="block text-sm font-medium text-gray-700 mb-1">Nome Completo *</label>
+                          <input type="text" name="name" id="contact_name" value={contactFormData.name} onChange={handleContactInputChange} required className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
+                        </div>
+                        <div>
+                          <label htmlFor="contact_email" className="block text-sm font-medium text-gray-700 mb-1">E-mail *</label>
+                          <input type="email" name="email" id="contact_email" value={contactFormData.email} onChange={handleContactInputChange} required className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
+                        </div>
+                        <div>
+                          <label htmlFor="contact_phone" className="block text-sm font-medium text-gray-700 mb-1">Telefone *</label>
+                          <input type="tel" name="phone" id="contact_phone" value={contactFormData.phone} onChange={handleContactInputChange} required className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
+                        </div>
+                        <div>
+                          <label htmlFor="contact_propertyType" className="block text-sm font-medium text-gray-700 mb-1">Tipo de Imóvel *</label>
+                          <select name="propertyType" id="contact_propertyType" value={contactFormData.propertyType} onChange={handleContactInputChange} required className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            <option value="Residencial">Residencial</option>
+                            <option value="Comercial">Comercial</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Rural">Rural</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div>
+                        <label htmlFor="contact_averageBill" className="block text-sm font-medium text-gray-700 mb-1">Média da Conta de Luz Mensal (R$)</label>
+                        <input type="number" name="averageBill" id="contact_averageBill" value={contactFormData.averageBill} onChange={handleContactInputChange} placeholder="Ex: 350" className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
+                      </div>
+                      <div>
+                        <label htmlFor="contact_message" className="block text-sm font-medium text-gray-700 mb-1">Mensagem Adicional</label>
+                        <textarea name="message" id="contact_message" value={contactFormData.message} onChange={handleContactInputChange} rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Descreva suas necessidades ou dúvidas..."></textarea>
+                      </div>
+                      <div>
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full px-6 py-3 bg-green-600 text-white font-bold text-lg rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-70"
+                        >
+                          {isSubmitting ? 'Enviando...' : `Solicitar Orçamento de ${company.companyName}`}
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
               )}
             </div>
         </div>
