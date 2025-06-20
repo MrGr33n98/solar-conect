@@ -25,7 +25,11 @@ interface SearchParams {
   page: number;
 }
 
-export const CompanySearch: React.FC = () => {
+interface CompanySearchProps {
+  onNavigate: (page: string, data?: any) => void;
+}
+
+export const CompanySearch: React.FC<CompanySearchProps> = ({ onNavigate }) => {
   const [searchParams, setSearchParams] = useState<SearchParams>({
     name: '',
     city: '',
@@ -34,6 +38,7 @@ export const CompanySearch: React.FC = () => {
     page: 1
   });
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [companiesToCompare, setCompaniesToCompare] = useState<Company[]>([]); // Added state
   const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -115,8 +120,23 @@ export const CompanySearch: React.FC = () => {
      }
   };
 
+  const handleToggleCompare = (company: Company) => {
+    setCompaniesToCompare(prev => {
+      const isAlreadySelected = prev.find(c => c.id === company.id);
+      if (isAlreadySelected) {
+        return prev.filter(c => c.id !== company.id); // Remove
+      } else {
+        if (prev.length < 3) { // Limit to 3 companies
+          return [...prev, company]; // Add
+        }
+        alert("Você pode comparar no máximo 3 empresas por vez.");
+        return prev;
+      }
+    });
+  };
+
   return (
-    <div className="p-4 md:p-8 max-w-4xl mx-auto">
+    <div className="p-4 md:p-8 max-w-4xl mx-auto pb-28"> {/* Added pb-28 for footer space */}
       <h3 className="text-2xl font-semibold text-center text-gray-800 mb-6 pb-2 border-b-2 border-gray-200">Encontre Empresas de Energia Solar</h3>
       <div className="mb-8 p-4 md:p-6 bg-gray-100 rounded-lg shadow-md flex flex-col sm:flex-row sm:flex-wrap items-center gap-4">
         <input
@@ -173,15 +193,26 @@ export const CompanySearch: React.FC = () => {
               <p className="text-sm text-gray-600 mb-1">{company.city}, {company.state}</p>
               {company.categories && company.categories.length > 0 && (
                 <p className="text-xs text-gray-500">
-                  Categories: {company.categories.map(c => c.name).join(', ')}
+                  Categorias: {company.categories.map(c => c.name).join(', ')}
                 </p>
               )}
-              {/* Example: <button className="mt-2 text-blue-600 hover:text-blue-800 text-sm">View Details</button> */}
+              <button
+                onClick={() => handleToggleCompare(company)}
+                className={`mt-2 px-3 py-1 text-sm rounded-md w-full text-center ${
+                  companiesToCompare.find(c => c.id === company.id)
+                    ? 'bg-red-500 text-white hover:bg-red-600'
+                    : 'bg-green-500 text-white hover:bg-green-600'
+                }`}
+              >
+                {companiesToCompare.find(c => c.id === company.id) ? 'Remover da Comparação' : 'Adicionar à Comparação'}
+              </button>
+              {/* Example: <button onClick={() => onNavigate('company', { companyId: company.id })} className="mt-2 text-blue-600 hover:text-blue-800 text-sm w-full text-center">Ver Detalhes</button> */}
             </div>
           </div>
         ))}
       </div>
 
+      {/* Pagination Controls */}
       {!isLoading && totalPages > 0 && (
          <div className="mt-8 py-4 flex justify-center items-center gap-2">
             <button
@@ -200,6 +231,33 @@ export const CompanySearch: React.FC = () => {
                 Próxima
             </button>
          </div>
+      )}
+
+      {/* Comparison Sticky Footer/Bar */}
+      {companiesToCompare.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-3 md:p-4 shadow-lg flex flex-col sm:flex-row justify-between items-center z-50">
+          <div className="mb-2 sm:mb-0">
+            <span className="font-semibold text-sm sm:text-base">Empresas para Comparar:</span>
+            <ul className="inline-flex list-none pl-2 flex-wrap">
+              {companiesToCompare.map(c => (
+                <li key={c.id} className="mr-2 mt-1 sm:mt-0 px-2 py-1 bg-gray-700 rounded text-xs">{c.name}</li>
+              ))}
+            </ul>
+          </div>
+          <button
+            onClick={() => {
+              if (companiesToCompare.length >= 2) {
+                onNavigate('compare', companiesToCompare);
+              } else {
+                alert("Selecione pelo menos 2 empresas para comparar.");
+              }
+            }}
+            disabled={companiesToCompare.length < 2}
+            className="px-4 py-2 md:px-6 md:py-2 bg-blue-600 hover:bg-blue-700 rounded-md font-semibold disabled:opacity-50 w-full sm:w-auto"
+          >
+            Comparar ({companiesToCompare.length})
+          </button>
+        </div>
       )}
     </div>
   );
