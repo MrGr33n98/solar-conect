@@ -5,7 +5,8 @@ import { HomePage } from './components/HomePage';
 import { CompanyPage } from './components/CompanyPage'; // This might be the old generic one, or the detail page itself. Let's assume it's the old one for now.
 import { DashboardPage } from './components/DashboardPage';
 import { CompanyComparisonPage } from './components/CompanyComparisonPage';
-import { CompanyDetailPage } from './components/CompanyDetailPage'; // Added
+import { CompanyDetailPage } from './components/CompanyDetailPage';
+import { AdminDashboardPage } from './components/AdminDashboardPage'; // Added
 
 // Define a basic Company type here if not imported from a global types file
 // This should ideally match the structure of your actual company objects
@@ -72,6 +73,8 @@ function App() {
           return <HomePage onNavigate={handleNavigation} />; // Fallback to home
         }
         return <CompanyDetailPage companyId={viewCompanyId} onNavigate={handleNavigation} />;
+      case 'adminDashboard': // Added case for Admin Dashboard
+        return <AdminDashboardPage onNavigate={handleNavigation} />;
       case 'home':
       default:
         return <HomePage onNavigate={handleNavigation} />;

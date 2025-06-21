@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../contexts/AuthContext'; // Assuming useAuth provides { user, loading (auth loading state) }
 
 // This Company interface should ideally be shared and match the full data structure.
 // It's defined comprehensively here for this component's needs.
@@ -69,8 +70,9 @@ let JULES_LOADED_FICTIONAL_DATA: Company[] = [
 
 
 export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId, onNavigate }) => {
+  const { user, loading: authLoading } = useAuth(); // Get user and auth loading state
   const [company, setCompany] = useState<Company | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // For company data loading
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>('visaoGeral'); // Default tab
 
@@ -107,19 +109,35 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
 
   // Analytics Page View Effect
   useEffect(() => {
-    if (company && company.id) { // Ensure company data is loaded
+    if (company && company.id && !authLoading) { // Ensure company data is loaded and auth state is resolved
       const pageViewData = {
         type: 'page_view',
         pageTitle: document.title,
         pageUrl: window.location.href,
         companyId: company.id,
         companyName: company.companyName,
-        // userId: authContext?.user?.id, // Conceptual: if auth context is available
+        userId: user?.id || null,
+        isAnonymousUser: user?.isAnonymous !== undefined ? user.isAnonymous : null,
         timestamp_client: new Date().toISOString()
       };
       console.log("ANALYTICS EVENT (Conceptual): page_view", pageViewData);
 
       // --- Conceptual Firestore Interaction ---
+      // Describe what should happen:
+      // Add a document to `analytics` collection (or `artifacts/{appId}/analytics`):
+      // {
+      //   type: 'page_view',
+      //   pageUrl: window.location.href,
+      //   pageTitle: document.title, // or specific like `Company Detail: ${company.companyName}`
+      //   companyId: company.id,
+      //   companyName: company.companyName,
+      //   userId: user?.id || null,
+      //   isAnonymousUser: user?.isAnonymous !== undefined ? user.isAnonymous : null,
+      //   timestamp: serverTimestamp() // Use Firebase serverTimestamp for actual implementation
+      // }
+      // --- End Conceptual Firestore Interaction ---
+    }
+  }, [company, user, authLoading]); // Run when company data, user, or authLoading state changes
       // Describe what should happen:
       // Add a document to `analytics` collection (or `artifacts/{appId}/analytics`):
       // {
@@ -169,11 +187,11 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
       type: 'lead_submission',
       companyId: company?.id,
       companyName: company?.companyName,
-      leadFormFieldsSummary: { // Log only non-sensitive summary
+      leadFormFieldsSummary: {
         propertyType: leadData.propertyType,
-        // averageBillProvided: !!leadData.averageBill
       },
-      // userId: authContext?.user?.id, // Conceptual
+      userId: user?.id || null,
+      isAnonymousUser: user?.isAnonymous !== undefined ? user.isAnonymous : null,
       timestamp_client: new Date().toISOString()
     };
     console.log("ANALYTICS EVENT (Conceptual): lead_submission", analyticsLeadData);
@@ -185,11 +203,11 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
     //   type: 'lead_submission',
     //   companyId: company?.id,
     //   companyName: company?.companyName,
-    //   // userId: authContext.user?.id, // If user is logged in
+    //   userId: user?.id || null,
+    //   isAnonymousUser: user?.isAnonymous !== undefined ? user.isAnonymous : null,
     //   // leadId: newLeadDocumentId, // ID of the lead document if just created in Firestore
     //   formDataSummary: {
     //       propertyType: leadData.propertyType,
-    //       // averageBillProvided: !!leadData.averageBill // Example of logging boolean flags
     //   },
     //   timestamp: serverTimestamp() // Use Firebase serverTimestamp for actual implementation
     // }
@@ -440,6 +458,22 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
                     </>
                   ) : (
                     <p className="text-gray-600 italic">Esta empresa ainda não possui avaliações.</p>
+                  )}
+
+                  {/* Review Submission Form - Conditionally Rendered */}
+                  {!authLoading && user && !user.isAnonymous && (
+                    <div className="mt-8 border-t pt-8">
+                      <h3 className="text-xl font-semibold text-gray-800 mb-4">Deixe sua Avaliação</h3>
+                      {/* ... Review form JSX (from previous step, ensure it uses reviewFormData, handleReviewInputChange, handleStarRatingChange, handleReviewFormSubmit) ... */}
+                       {/* This section would contain the review form fields: StarRatingInput, reviewerName, reviewTitle, comment, and submit button */}
+                    </div>
+                  )}
+                  {!authLoading && (!user || user.isAnonymous) && (
+                    <div className="mt-8 border-t pt-8 text-center">
+                      <p className="text-gray-600 italic p-4 bg-gray-100 rounded-md">
+                        <button onClick={() => onNavigate('login')} className="text-blue-600 hover:underline font-semibold">Faça login</button> para deixar sua avaliação.
+                      </p>
+                    </div>
                   )}
                 </div>
               )}
