@@ -76,6 +76,15 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>('visaoGeral'); // Default tab
 
+  const [reviewFormData, setReviewFormData] = useState({
+    rating: 0,
+    reviewTitle: '',
+    comment: '',
+    reviewerName: ''
+  });
+  const [reviewSubmitStatus, setReviewSubmitStatus] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+
   const [contactFormData, setContactFormData] = useState({
     name: '',
     email: '',
@@ -109,7 +118,7 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
 
   // Analytics Page View Effect
   useEffect(() => {
-    if (company && company.id && !authLoading) { // Ensure company data is loaded and auth state is resolved
+    if (company && company.id && !authLoading) {
       const pageViewData = {
         type: 'page_view',
         pageTitle: document.title,
@@ -117,7 +126,7 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
         companyId: company.id,
         companyName: company.companyName,
         userId: user?.id || null,
-        isAnonymousUser: user?.isAnonymous !== undefined ? user.isAnonymous : null,
+        isAnonymousUser: user?.isAnonymous === true, // More direct boolean
         timestamp_client: new Date().toISOString()
       };
       console.log("ANALYTICS EVENT (Conceptual): page_view", pageViewData);
@@ -128,30 +137,18 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
       // {
       //   type: 'page_view',
       //   pageUrl: window.location.href,
-      //   pageTitle: document.title, // or specific like `Company Detail: ${company.companyName}`
+      //   pageTitle: document.title,
       //   companyId: company.id,
       //   companyName: company.companyName,
       //   userId: user?.id || null,
-      //   isAnonymousUser: user?.isAnonymous !== undefined ? user.isAnonymous : null,
-      //   timestamp: serverTimestamp() // Use Firebase serverTimestamp for actual implementation
+      //   isAnonymousUser: user?.isAnonymous === true,
+      //   timestamp: serverTimestamp()
       // }
       // --- End Conceptual Firestore Interaction ---
     }
-  }, [company, user, authLoading]); // Run when company data, user, or authLoading state changes
-      // Describe what should happen:
-      // Add a document to `analytics` collection (or `artifacts/{appId}/analytics`):
-      // {
-      //   type: 'page_view',
-      //   pageUrl: window.location.href,
-      //   pageTitle: document.title, // or specific like `Company Detail: ${company.companyName}`
-      //   companyId: company.id,
-      //   companyName: company.companyName,
-      //   // userId: authContext.user?.id, // If user is logged in and context is available
-      //   timestamp: serverTimestamp() // Use Firebase serverTimestamp for actual implementation
-      // }
-      // --- End Conceptual Firestore Interaction ---
-    }
-  }, [company]); // Run when company data is successfully set/changed
+  // Ensure user.isAnonymous is stable if user object identity changes but not its properties.
+  // However, user object itself should be stable unless auth state changes.
+  }, [company, user, authLoading]);
 
 
   const tabs = [
@@ -191,7 +188,7 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
         propertyType: leadData.propertyType,
       },
       userId: user?.id || null,
-      isAnonymousUser: user?.isAnonymous !== undefined ? user.isAnonymous : null,
+      isAnonymousUser: user?.isAnonymous === true, // More direct boolean
       timestamp_client: new Date().toISOString()
     };
     console.log("ANALYTICS EVENT (Conceptual): lead_submission", analyticsLeadData);
@@ -204,12 +201,12 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
     //   companyId: company?.id,
     //   companyName: company?.companyName,
     //   userId: user?.id || null,
-    //   isAnonymousUser: user?.isAnonymous !== undefined ? user.isAnonymous : null,
-    //   // leadId: newLeadDocumentId, // ID of the lead document if just created in Firestore
+    //   isAnonymousUser: user?.isAnonymous === true,
+    //   // leadId: newLeadDocumentId,
     //   formDataSummary: {
     //       propertyType: leadData.propertyType,
     //   },
-    //   timestamp: serverTimestamp() // Use Firebase serverTimestamp for actual implementation
+    //   timestamp: serverTimestamp()
     // }
     // --- End Conceptual Firestore Interaction ---
 
@@ -220,6 +217,58 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
     setContactFormData({ name: '', email: '', phone: '', propertyType: 'Residencial', averageBill: '', message: '' }); // Reset form
 
     setIsSubmitting(false);
+  };
+
+  const handleReviewInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setReviewFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleStarRatingChange = (ratingValue: number) => {
+    setReviewFormData(prev => ({ ...prev, rating: ratingValue }));
+  };
+
+  const handleReviewFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (reviewFormData.rating === 0) {
+      setReviewSubmitStatus({ message: "Por favor, selecione uma avaliação em estrelas.", type: 'error'});
+      return;
+    }
+    if (!reviewFormData.reviewerName.trim()) {
+      setReviewSubmitStatus({ message: "Por favor, informe seu nome.", type: 'error'});
+      return;
+    }
+    if (!reviewFormData.comment.trim()) { // Assuming comment is mandatory
+      setReviewSubmitStatus({ message: "Por favor, deixe um comentário.", type: 'error'});
+      return;
+    }
+
+    setIsSubmittingReview(true);
+    setReviewSubmitStatus(null);
+
+    const newReviewData = {
+      ...reviewFormData,
+      companyId: company?.id,
+      submittedAt: new Date().toISOString()
+    };
+
+    console.log("New Review Data to be submitted:", newReviewData);
+
+    // --- Conceptual Firestore Interaction ---
+    // 1. New review saved to a sub-collection: `companies/{companyId}/reviews`
+    //    Example: { customerName: reviewerName, rating, title: reviewTitle, comment, submittedAt }
+    // 2. Update the main company document (`companies/{companyId}`):
+    //    - Increment `numReviews`.
+    //    - Recalculate `rating` (average). (Often done via Firebase Function)
+    // --- End Conceptual Firestore Interaction ---
+
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    setReviewSubmitStatus({ message: "Avaliação enviada com sucesso! Obrigado pelo seu feedback.", type: 'success' });
+    setReviewFormData({ rating: 0, reviewTitle: '', comment: '', reviewerName: '' });
+    // Optionally, re-fetch reviews or optimistically add to local state.
+
+    setIsSubmittingReview(false);
   };
 
   useEffect(() => {
@@ -462,10 +511,42 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
 
                   {/* Review Submission Form - Conditionally Rendered */}
                   {!authLoading && user && !user.isAnonymous && (
-                    <div className="mt-8 border-t pt-8">
+                    <div className="mt-8 border-t pt-6"> {/* Added pt-6 for separation */}
                       <h3 className="text-xl font-semibold text-gray-800 mb-4">Deixe sua Avaliação</h3>
-                      {/* ... Review form JSX (from previous step, ensure it uses reviewFormData, handleReviewInputChange, handleStarRatingChange, handleReviewFormSubmit) ... */}
-                       {/* This section would contain the review form fields: StarRatingInput, reviewerName, reviewTitle, comment, and submit button */}
+                      {reviewSubmitStatus && (
+                        <div className={`p-3 mb-4 rounded-md text-sm ${reviewSubmitStatus.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                          {reviewSubmitStatus.message}
+                        </div>
+                      )}
+                      {(!reviewSubmitStatus || reviewSubmitStatus.type === 'error') && (
+                        <form onSubmit={handleReviewFormSubmit} className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Sua Avaliação (Estrelas) *</label>
+                            <StarRatingInput currentRating={reviewFormData.rating} onRatingChange={handleStarRatingChange} disabled={isSubmittingReview} />
+                          </div>
+                          <div>
+                            <label htmlFor="reviewerName" className="block text-sm font-medium text-gray-700 mb-1">Seu Nome *</label>
+                            <input type="text" name="reviewerName" id="reviewerName" value={reviewFormData.reviewerName} onChange={handleReviewInputChange} required disabled={isSubmittingReview} className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
+                          </div>
+                          <div>
+                            <label htmlFor="reviewTitle" className="block text-sm font-medium text-gray-700 mb-1">Título da Avaliação (Opcional)</label>
+                            <input type="text" name="reviewTitle" id="reviewTitle" value={reviewFormData.reviewTitle} onChange={handleReviewInputChange} disabled={isSubmittingReview} className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"/>
+                          </div>
+                          <div>
+                            <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-1">Seu Comentário *</label>
+                            <textarea name="comment" id="comment" value={reviewFormData.comment} onChange={handleReviewInputChange} rows={4} required disabled={isSubmittingReview} className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Descreva sua experiência com a empresa..."></textarea>
+                          </div>
+                          <div>
+                            <button
+                              type="submit"
+                              disabled={isSubmittingReview}
+                              className="px-6 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-70"
+                            >
+                              {isSubmittingReview ? 'Enviando Avaliação...' : 'Enviar Avaliação'}
+                            </button>
+                          </div>
+                        </form>
+                      )}
                     </div>
                   )}
                   {!authLoading && (!user || user.isAnonymous) && (
