@@ -467,7 +467,7 @@ export const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ companyId,
                   {company.warrantyYears && typeof company.warrantyYears === 'object' &&
                    (company.warrantyYears.painel || company.warrantyYears.inversor || company.warrantyYears.instalacao) && (
                     <section>
-                      <h4 className="text-lg font-medium text-gray-800">Garantias Detalhadas (Anos):</h3>
+                      <h4 className="text-lg font-medium text-gray-800">Garantias Detalhadas (Anos):</h4>
                       {company.warrantyYears.painel && <p className="text-gray-600"><strong>Painel:</strong> {company.warrantyYears.painel} anos</p>}
                       {company.warrantyYears.inversor && <p className="text-gray-600"><strong>Inversor:</strong> {company.warrantyYears.inversor} anos</p>}
                       {company.warrantyYears.instalacao && <p className="text-gray-600"><strong>Instalação:</strong> {company.warrantyYears.instalacao} anos</p>}

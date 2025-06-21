@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { LoginPage } from './components/LoginPage';
 import { HomePage } from './components/HomePage';
-import { CompanyPage } from './components/CompanyPage'; // This might be the old generic one, or the detail page itself. Let's assume it's the old one for now.
+import CompanyPage from './components/CompanyPage'; // This might be the old generic one, or the detail page itself. Let's assume it's the old one for now.
 import { DashboardPage } from './components/DashboardPage';
 import { CompanyComparisonPage } from './components/CompanyComparisonPage';
 import { CompanyDetailPage } from './components/CompanyDetailPage'; // Added
